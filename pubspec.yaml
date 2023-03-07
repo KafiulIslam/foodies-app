@@ -35,15 +35,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   smooth_page_indicator: any
+  flutter_screenutil: any
+  google_fonts: any
+  masonry_grid: any
+  device_preview: any
+  auto_size_text: any
+  auto_route: ^5.0.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_screenutil: ^5.3.1
-  google_fonts: ^2.3.1
-  masonry_grid: ^1.0.0
-  device_preview: ^1.0.0
-  auto_size_text: ^3.0.0
+  auto_route_generator: ^5.0.3
+  build_runner: ^2.3.3
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

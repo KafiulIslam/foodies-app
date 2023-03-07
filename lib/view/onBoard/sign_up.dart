@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodies/common_classes.dart';
-import 'package:foodies/constantpage.dart';
+import 'package:foodies/widgets/common_classes.dart';
+import 'package:foodies/utils/constantpage.dart';
 import 'package:foodies/view/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,14 +16,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     int selectButton = 2;
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: const Size(414, 896),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
+    ScreenUtil.init(context, designSize: const Size(320, 660));
 
     return SafeArea(
         child: Scaffold(

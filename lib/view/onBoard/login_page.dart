@@ -1,11 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodies/common_classes.dart';
-import 'package:foodies/constantpage.dart';
-import 'package:foodies/page_slider_from_right_side.dart';
-import 'package:foodies/rough_page.dart';
+import 'package:foodies/routes/router.gr.dart';
+import 'package:foodies/widgets/common_classes.dart';
+import 'package:foodies/utils/constantpage.dart';
+import 'package:foodies/utils/page_slider_from_right_side.dart';
 import 'package:foodies/view/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../dashboard.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({Key? key}) : super(key: key);
@@ -27,11 +30,8 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
   late Animation<double> _animationTextIn;
   late Animation<double> _animationButtonTranslateIn;
 
-
-
   late AnimationController _animationControllerForSignAndForgetLower;
   late Animation<Offset> _animationForSignForgetLower;
-
 
   void _animationExecutionForLoginPage() {
     _animationControllerForLoginPage =
@@ -59,10 +59,7 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
     _animationControllerForLoginPage.forward();
   }
 
-
   void slideAnimationForLowerContainer() {
-
-
     _animationControllerForSignAndForgetLower = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -80,40 +77,26 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
 
   }
 
-
   @override
   void initState() {
     _animationExecutionForLoginPage();
-
     super.initState();
   }
 
   @override
   void dispose() {
     _animationControllerForLoginPage.dispose();
-
     _animationControllerForSignAndForgetLower.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
 
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: const Size(414, 896),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
-
+    ScreenUtil.init(context, designSize: const Size(320, 660));
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
 
     return SafeArea(
       child: AnimatedBuilder(
@@ -122,9 +105,6 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
             return Scaffold(
               backgroundColor: ass,
               body: SingleChildScrollView(
-
-                scrollDirection: Axis.vertical,
-
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -227,10 +207,7 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-
-
                    selectButton == 1 ?
-
                        Transform.translate(
                           offset:
                               Offset(0.0, 10 * _animationLowerContainerIn.value),
@@ -273,9 +250,7 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
                                       buttonTitle: 'Sign In',
                                       titleColor: white,
                                       onTap: () {
-                                        Navigator.push(context, PageRoutingWithRightSlide(widget: const NavigationBarBoard()));
-
-
+                                        context.router.replace(const DashBoardRoute());
                                       },
                                     ),
                                   ),
@@ -284,7 +259,6 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
                             ),
                           ),
                         )
-
                     :  selectButton == 2 ?
                    SlideTransition(
                      position: _animationForSignForgetLower,
@@ -313,8 +287,7 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
                                    buttonTitle: 'Sign Up',
                                    titleColor: white,
                                    onTap: (){
-                                     Navigator.push(context,PageRoutingWithRightSlide(widget: const NavigationBarBoard()));
-
+                                     context.router.replace(const DashBoardRoute());
                                    },
                                  ),
                                )
@@ -350,7 +323,8 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin {
                                    buttonTitle: 'Recover',
                                    titleColor: white,
                                    onTap: (){
-                                     Navigator.push(context,PageRoutingWithRightSlide(widget: const NavigationBarBoard()));
+                                     context.router.replace(const DashBoardRoute());
+                                   //  Navigator.push(context,PageRoutingWithRightSlide(widget: const DashBoard()));
 
                                    },
                                  ),

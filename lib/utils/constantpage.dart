@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-
-
 
 const  brandColor = Color(0xFF0C7265);
 const brandColorLight = Color(0xFF1C8476);
@@ -13,9 +10,6 @@ const fadeBrandColor = Color(0xFFD6E4E2);
 const black = Colors.black;
 const transparent = Colors.transparent;
 
-
-// height: MediaQuery.of(context).size.height / 2.5,
-// width: MediaQuery.of(context).size.width / 2.5,
 
 
 

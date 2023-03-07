@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodies/common_classes.dart';
-import 'package:foodies/constantpage.dart';
+import 'package:foodies/widgets/common_classes.dart';
+import 'package:foodies/utils/constantpage.dart';
 import 'package:foodies/main.dart';
-import 'package:foodies/view/favourite_page.dart';
-import 'package:foodies/view/home_page.dart';
-import 'package:foodies/view/profile.dart';
+
 
 class ItemSearch extends SearchDelegate<String> {
 

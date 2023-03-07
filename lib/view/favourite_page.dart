@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:foodies/common_classes.dart';
-import 'package:foodies/constantpage.dart';
+import 'package:foodies/widgets/common_classes.dart';
+import 'package:foodies/utils/constantpage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodies/rough_page.dart';
+import 'package:foodies/utils/rough_page.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 
 class Favourite extends StatefulWidget {
@@ -15,11 +13,6 @@ class Favourite extends StatefulWidget {
 }
 
 class _FavouriteState extends State<Favourite> with TickerProviderStateMixin{
-
-
-
-  final GlobalKey <AnimatedListState> favouriteCardListKey = GlobalKey <AnimatedListState> ();
-
 
   late AnimationController _animationControllerInFavourite;
   late Animation<double> _animationMiniRoundButtonScaleUp;
@@ -61,10 +54,8 @@ class _FavouriteState extends State<Favourite> with TickerProviderStateMixin{
   @override
   void initState() {
     _animationExecutionInFavourite();
-
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -72,30 +63,8 @@ class _FavouriteState extends State<Favourite> with TickerProviderStateMixin{
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-    List<Widget> favouriteCardList = const  [
-      FavouriteCard(image: 'images/pizza.png', itemName: "Beef Pizza", price: "1200 tk"),
-      FavouriteCard(image: 'images/vagetable pasta.png', itemName: "Vegetable Pasta", price: "450 tk"),
-      FavouriteCard(image: 'images/noodles.png', itemName: "Egg Noodles", price: "320 tk"),
-      FavouriteCard(image: 'images/noodles.png', itemName: "Egg Noodles", price: "320 tk"),
-      FavouriteCard(image: 'images/noodles.png', itemName: "Egg Noodles", price: "320 tk"),
-      FavouriteCard(image: 'images/noodles.png', itemName: "Egg Noodles", price: "320 tk"),
-
-    ];
-
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: const Size(414, 896),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
-
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -114,7 +83,6 @@ class _FavouriteState extends State<Favourite> with TickerProviderStateMixin{
                   right: width/13,
                 ),
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
                       Row(
@@ -147,29 +115,24 @@ class _FavouriteState extends State<Favourite> with TickerProviderStateMixin{
                         opacity: _animationCardListIn.value,
                         child: Container(
                           height: MediaQuery.of(context).size.height / 1.2,
-                          width: double.infinity, child:
-                        CustomScrollView(
+                          width: double.infinity,
+                          child: CustomScrollView(
                           slivers: [
                             SliverToBoxAdapter(
-                                child: MasonryGrid(column: 1, mainAxisSpacing: 16.h, children: const [
+                                child: MasonryGrid(column: 1, mainAxisSpacing: 16, children: const [
                                   FavouriteCard(image: 'images/pizza.png', itemName: "Beef Pizza", price: "1200 tk"),
                                   FavouriteCard(image: 'images/vagetable pasta.png', itemName: "Vegetable Pasta", price: "450 tk"),
-
                                   FavouriteCard(image: 'images/noodles.png', itemName: "Egg Noodles", price: "320 tk"),
                                   FavouriteCard(image: 'images/chicken nuggets.png', itemName: "Chicken Nuggets", price: "320 tk"),
                                   FavouriteCard(image: 'images/burger.png', itemName: "Burger", price: "320 tk"),
                                   FavouriteCard(image: 'images/seafood.png', itemName: "Sea Food", price: "320 tk"),
-
                                 ]))
                           ],
                         ),
 
                         ),
                       ),
-
                       SizedBox(height: height/28,),
-
-
                     ],
                   ),
                 ),

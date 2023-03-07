@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies/common_classes.dart';
-import 'package:foodies/constantpage.dart';
+import 'package:foodies/widgets/common_classes.dart';
+import 'package:foodies/utils/constantpage.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodies/view/favourite_page.dart';
-import 'package:foodies/view/profile.dart';
-
 
 
 class Home extends StatefulWidget {
@@ -15,13 +12,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin{
-
-
-
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   int selectMenuList = 0;
   int selectMenuCard = 0;
-
 
   late AnimationController _animationControllerInHome;
   late Animation<double> _animationMiniRoundButtonScaleUp;
@@ -31,55 +24,47 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   late Animation<double> _animationButtonIn;
   late Animation<double> _animationNavigationBarOpacity;
 
-
   void _animationExecutionInHome() {
+    _animationControllerInHome =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
-    _animationControllerInHome = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-
-    _animationMiniRoundButtonScaleUp = Tween(begin: 0.20, end: 1.00).animate(CurvedAnimation(
-        parent: _animationControllerInHome,
-        curve: const Interval(0.0, 0.20, curve: Curves.easeIn)));
-
+    _animationMiniRoundButtonScaleUp = Tween(begin: 0.20, end: 1.00).animate(
+        CurvedAnimation(
+            parent: _animationControllerInHome,
+            curve: const Interval(0.0, 0.20, curve: Curves.easeIn)));
 
     _animationOpacity = CurvedAnimation(
         parent: _animationControllerInHome,
-        curve: const Interval(0.10, 0.30, curve: Curves.fastLinearToSlowEaseIn));
+        curve:
+            const Interval(0.10, 0.30, curve: Curves.fastLinearToSlowEaseIn));
 
-
-  _animationListViewRightSlide = Tween<Offset>(
-    begin: const Offset(-1.0, 0.0),
-    end: Offset.zero,
-  ).animate(CurvedAnimation(
-    parent: _animationControllerInHome,
-    curve:  const Interval(0.30, 0.60,curve:Curves.fastLinearToSlowEaseIn),
-  ));
-
+    _animationListViewRightSlide = Tween<Offset>(
+      begin: const Offset(-1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _animationControllerInHome,
+      curve: const Interval(0.30, 0.60, curve: Curves.fastLinearToSlowEaseIn),
+    ));
 
     _animationListViewLeftSlide = Tween<Offset>(
       begin: const Offset(1.0, 0.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _animationControllerInHome,
-      curve:  const Interval(0.30, 0.60,curve:Curves.fastLinearToSlowEaseIn),
+      curve: const Interval(0.30, 0.60, curve: Curves.fastLinearToSlowEaseIn),
     ));
-
 
     _animationButtonIn = CurvedAnimation(
         parent: _animationControllerInHome,
         curve:
-        const Interval(0.60, 0.80, curve: Curves.fastLinearToSlowEaseIn));
-
+            const Interval(0.60, 0.80, curve: Curves.fastLinearToSlowEaseIn));
 
     _animationNavigationBarOpacity = CurvedAnimation(
         parent: _animationControllerInHome,
         curve: const Interval(0.70, 1.0, curve: Curves.easeInSine));
 
-
-
-
     _animationControllerInHome.forward();
   }
-
 
   @override
   void initState() {
@@ -87,18 +72,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     super.initState();
   }
 
-
   @override
   void dispose() {
     _animationControllerInHome.dispose();
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
     List<Widget> menuList = [
       TextWithBar(
           item: 'BreakFast',
@@ -150,7 +131,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           barColor: selectMenuList == 11 ? brandColor : transparent),
     ];
 
-
     List<Widget> menuCardsList = [
       const MenuCard(
           image: 'images/pizza.png',
@@ -176,232 +156,146 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           image: 'images/chicken nuggets.png',
           itemName: "Chicken\nNuggets",
           price: '450 tk.'),
-
     ];
-
-
-    ScreenUtil.init(
-        BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width,
-            maxHeight: MediaQuery.of(context).size.height),
-        designSize: const Size(414, 896),
-        context: context,
-        minTextAdapt: true,
-        orientation: Orientation.portrait);
-
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-
     return SafeArea(
       child: AnimatedBuilder(
-        animation: _animationControllerInHome,
-        builder: (context, _) {
-          return Scaffold(
-            backgroundColor: lightAss,
-            body: Padding(
-              padding: EdgeInsets.only(
-                top: height /18,
-                bottom: height /56,
-
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding:   EdgeInsets.only(left: width/13,right: width/13),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Transform.scale(
-                              scale: _animationMiniRoundButtonScaleUp.value,
-
-                              child: const ShortCircleButton(icon: Icons.menu,iconColor: white,circleColor: brandColor,)),
-                          Transform.scale(
-                              scale: _animationMiniRoundButtonScaleUp.value,
-                              child: const ShortCircleButton(
-                                  icon: Icons.shopping_cart,iconColor: white,circleColor: brandColor)),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: height/28,
-                    ),
-                    Opacity(
-                      opacity: _animationOpacity.value,
-                      child: Padding(
-                        padding:   EdgeInsets.only(left: width/13,right: width/13),
-                        child: CupertinoSearchTextField(
-                          backgroundColor: white,
-                          borderRadius: BorderRadius.circular(16.r),
-                          prefixInsets: EdgeInsets.only(left: 24.w),
-                          suffixInsets: EdgeInsets.only(left: 24.w),
-                          onChanged: (value) {},
-                          onTap: () {
-
-                          },
+          animation: _animationControllerInHome,
+          builder: (context, _) {
+            return Scaffold(
+              backgroundColor: lightAss,
+              body: Padding(
+                padding: EdgeInsets.only(
+                  top: height / 18,
+                  bottom: height / 56,
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width / 13, right: width / 13),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Transform.scale(
+                                scale: _animationMiniRoundButtonScaleUp.value,
+                                child: const ShortCircleButton(
+                                  icon: Icons.menu,
+                                  iconColor: white,
+                                  circleColor: brandColor,
+                                )),
+                            Transform.scale(
+                                scale: _animationMiniRoundButtonScaleUp.value,
+                                child: const ShortCircleButton(
+                                    icon: Icons.shopping_cart,
+                                    iconColor: white,
+                                    circleColor: brandColor)),
+                          ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: height/28,
-                    ),
-                    Container(
-                        height: height/25,
-                        width: double.infinity,
-                        child: SlideTransition(
-                          position:   _animationListViewRightSlide,
+                      SizedBox(
+                        height: height / 28,
+                      ),
+                      Opacity(
+                        opacity: _animationOpacity.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: width / 13, right: width / 13),
+                          child: CupertinoSearchTextField(
+                            backgroundColor: white,
+                            borderRadius: BorderRadius.circular(16.r),
+                            prefixInsets: EdgeInsets.only(left: 24.w),
+                            suffixInsets: EdgeInsets.only(left: 24.w),
+                            onChanged: (value) {},
+                            onTap: () {},
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height / 28,
+                      ),
+                      Container(
+                          height: height / 25,
+                          width: double.infinity,
+                          child: SlideTransition(
+                            position: _animationListViewRightSlide,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: width / 13, right: width / 13),
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  // padding: const EdgeInsets.all(8),
+                                  itemCount: menuList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectMenuList = index;
+                                          });
+                                        },
+                                        child: menuList[index]);
+                                  }),
+                            ),
+                          )),
+                      SizedBox(
+                        height: height / 28,
+                      ),
+                      SlideTransition(
+                        position: _animationListViewLeftSlide,
+                        child: Container(
+                          height: height / 2.5,
+                          width: double.infinity,
                           child: Padding(
-                            padding:   EdgeInsets.only(left: width/13,right: width/13),
+                            padding: EdgeInsets.only(
+                                left: width / 28, right: width / 28),
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                // padding: const EdgeInsets.all(8),
-                                itemCount: menuList.length,
+                                // padding:   EdgeInsets.only(right: 32.w),
+                                itemCount: menuCardsList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          selectMenuList = index;
-
-                                        });
-                                      },
-                                      child: menuList[index]);
+                                  return menuCardsList[index];
                                 }),
                           ),
-                        )),
-                    SizedBox(
-                      height: height/28,
-                    ),
-                    SlideTransition(
-                      position: _animationListViewLeftSlide,
-                      child: Container(
-                        height: height/2.5,
-                        width: double.infinity,
-
-
-                        child: Padding(
-                          padding:   EdgeInsets.only(left: width/28,right: width/28),
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // padding:   EdgeInsets.only(right: 32.w),
-                              itemCount: menuCardsList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return menuCardsList[index];
-                              }),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: height/18,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: width/14, right: width/14),
-                      child: Transform.translate(
-                        offset: Offset(
-                            0.0,
-                            height/4 *
-                                (1 - _animationButtonIn.value)
-                                    .toDouble()),
-                        child: Opacity(
-                          opacity: _animationButtonIn.value,
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigator.pop(context, false);
-                            },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: height/18,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    color: brandColor),
-                                child: Text('Buy',
-                                    style: TextStyle(
-                                        fontSize: 32.sp,
-                                        color: white,
-                                        fontWeight: FontWeight.bold))),
+                      SizedBox(
+                        height: height / 18,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: width / 14, right: width / 14),
+                        child: Transform.translate(
+                          offset: Offset(
+                              0.0,
+                              height /
+                                  4 *
+                                  (1 - _animationButtonIn.value).toDouble()),
+                          child: Opacity(
+                            opacity: _animationButtonIn.value,
+                           child: CommonLargeButton(
+                              buttonTitle: 'Buy',
+                              largeButtonColor: brandColor,
+                              titleColor: Colors.white, onTap: () {},
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: height/18,
-                    ),
-
-                  ],
+                      SizedBox(
+                        height: height / 18,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-          );
-        }
-      ),
+            );
+          }),
     );
   }
 }
 
-
-
-class NavigationBarBoard extends StatefulWidget {
-  const NavigationBarBoard({Key? key}) : super(key: key);
-
-  @override
-  _NavigationBarBoardState createState() => _NavigationBarBoardState();
-}
-
-class _NavigationBarBoardState extends State<NavigationBarBoard> {
-
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Home(), Favourite(),Profile()
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
-      body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: lightAss,
-
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              tooltip: 'Home',
-              icon: Icon(Icons.home),
-              label:  ' ',
-              // backgroundColor: Colors.green
-            ),
-            BottomNavigationBarItem(
-              tooltip: 'Favourite',
-              icon: Icon(Icons.favorite),
-              label:  ' ',
-              // backgroundColor: Colors.yellow
-            ),
-            BottomNavigationBarItem(
-              tooltip: 'Profile',
-              icon: Icon(Icons.person),
-              label:  ' ',
-              // backgroundColor: Colors.blue,
-            ),
-          ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          selectedItemColor: brandColor,
-          unselectedItemColor: fadeBrandColor,
-
-
-          iconSize: 30,
-          onTap: _onItemTapped,
-          elevation: 0.0
-      ),),
-    );
-  }
-}
